@@ -1,6 +1,6 @@
 {
   "name": "brotest",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Test code in web browser.",
   "engines": {
     "node": ">= 17.0.0",
