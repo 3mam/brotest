@@ -1,6 +1,6 @@
 {
   "name": "brotest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Test code in web browser.",
   "engines": {
     "node": ">= 17.0.0",
@@ -11,7 +11,7 @@
   "source": "src/bin.js",
   "author": "Konrad Chmielecki",
   "license": "GPL-3.0",
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/3mam/brotest"
   },
@@ -22,7 +22,7 @@
     "test",
     "webbrowser"
   ],
-  "peerDependencies": {
-    "@parcel/core": "^2.5.0"
+  "dependencies": {
+    "parcel": "^2.5.0"
   }
 }
