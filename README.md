@@ -1,6 +1,6 @@
 # brotest
 Brotest is tool for testing code in web browser.
-Brotest support asynchronous programming and thanks to [Parcel.js](https://parceljs.org) hot reloading and typescript. 
+Brotest support asynchronous programming and thanks to [Parcel.js](https://parceljs.org) hot reloading server and typescript. 
 Scanning folder to find and automatically added file that contains **.test.** in file name.
 Brotest give possibility to focus on class that current working on. 
 Thanks to that entire test for project in not reloading when code is editing.
