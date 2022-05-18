@@ -38,5 +38,5 @@ export default class {
 ```
 ![image](./img/show.png)
 
-## demo
+## demo video
 [![watch video](https://img.youtube.com/vi/sY_C3skjVIk/0.jpg)](https://youtu.be/sY_C3skjVIk)
