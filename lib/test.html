@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      body {
+        margin-top: 1%;
+        display: flex;
+        justify-content: center;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        width: auto;
+        min-width: 15%;
+      }
+
+      .file {
+        margin-left: -10%;
+      }
+
+      a {
+        margin-right: -10%;
+      }
+
+      .func {
+        display: flex;
+        justify-content: space-between;
+        width: auto;
+      }
+
+      .func .name::after {
+        content: " ";
+      }
+
+      .ok::before {
+        background-color: rgb(210, 250, 151);
+        content: "OK";
+      }
+
+      .bad::before {
+        background-color: rgb(255, 166, 166);
+        content: "BAD";
+      }
+
+      .run::before {
+        background-color: rgb(255, 255, 137);
+        content: "RUN";
+      }
+
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <main></main>
+    <script type="module">
+      var head = ({ name, file }, focus = false) =>
+        `
+          <br>
+          <div class="func">
+            <b class="file">${file}</b>
+            <a href="${focus ? "" : "#" + name}">${
+          focus ? "unfocus" : "focus"
+        }</a>
+          </div>
+          <div class="func">
+          <b>function</b> <b>status</b>
+          </div>
+        `
+      var func = (name, id) =>
+        `
+          <div class="func">
+            <div class="name">${name}</div>
+            <div id="${id}">
+              <div class="run"></div>
+            </div>
+          </div>
+          <div id="${id}_error" class="error"></div>
+        `
+
+      var assert =
+        (id, seal = false) =>
+        (stat, msg = "") => {
+          if (seal) return
+          document.getElementById(id).innerHTML = `<div class=${
+            stat ? "ok" : "bad"
+          }></div>`
+
+          if (stat) return
+          seal = true
+          document.getElementById(`${id}_error`).innerHTML = msg
+        }
+
+      async function main(focus = false) {
+        let list = ["{objects}"]
+        let main = document.getElementsByTagName("main")[0]
+        main.innerHTML = ""
+
+        for await (let test of list) {
+          if (focus && !location.hash.includes(test.name)) continue
+
+          let instance = new (await test.obj).default()
+          let instanceMethods = Object.getOwnPropertyNames(
+            Object.getPrototypeOf(instance)
+          )
+
+          main.innerHTML += head(test, focus)
+          for await (let fnName of instanceMethods) {
+            if (fnName === "constructor") continue
+
+            let id = `${test.name}_${fnName}`
+            main.innerHTML += func(fnName, id)
+            instance[fnName](assert(id))
+          }
+        }
+      }
+
+      var run = () => {
+        if (location.hash === "") main(false)
+        else main(true)
+      }
+      window.onload = run
+      window.onpopstate = run
+    </script>
+  </body>
+</html>

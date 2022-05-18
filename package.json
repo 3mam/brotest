@@ -1,0 +1,28 @@
+{
+  "name": "brotest",
+  "version": "1.0",
+  "description": "Test code in web browser",
+  "engines": {
+    "node": ">= 17.0.0",
+    "parcel": "^2.5.0"
+  },
+  "bin": "lib/bin.js",
+  "main": "lib/bin.js",
+  "source": "src/bin.js",
+  "author": "Konrad Chmielecki",
+  "license": "GPL-3.0",
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/3mam/parcel-transformer-wat"
+  },
+  "files": [
+    "lib"
+  ],
+  "keywords": [
+    "test",
+    "webbrowser"
+  ],
+  "peerDependencies": {
+    "@parcel/core": "^2.5.0"
+  }
+}
