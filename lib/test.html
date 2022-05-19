@@ -17,77 +17,77 @@
         justify-content: center;
       }
 
-      main {
-        display: flex;
-        flex-direction: column;
-        width: auto;
-        min-width: 15%;
-      }
-
-      .file {
-        margin-left: -10%;
-      }
 
       a {
-        margin-right: -10%;
-      }
-
-      .func {
-        display: flex;
-        justify-content: space-between;
-        width: auto;
-      }
-
-      .func .name::after {
-        content: " ";
+        margin-left: 40%;
       }
 
       .ok::before {
         background-color: rgb(210, 250, 151);
-        content: "OK";
+        content: "PASS";
       }
 
       .bad::before {
         background-color: rgb(255, 166, 166);
-        content: "BAD";
+        content: "FAIL";
       }
 
       .run::before {
         background-color: rgb(255, 255, 137);
-        content: "RUN";
+        content: "RUNS";
       }
 
       .error {
         color: red;
       }
+
+      table {
+        width: 30vw;
+      }
+
+      .title {
+        margin-left: -10%;
+      }
+
+      tr > td:last-child {
+        text-align: center;
+      }
     </style>
   </head>
   <body>
-    <main></main>
+    <table></table>
+
     <script type="module">
       var head = ({ name, file }, focus = false) =>
         `
-          <br>
-          <div class="func">
-            <b class="file">${file}</b>
-            <a href="${focus ? "" : "#" + name}">${
-          focus ? "unfocus" : "focus"
-        }</a>
-          </div>
-          <div class="func">
-          <b>function</b> <b>status</b>
-          </div>
+          <thead>
+            <tr>
+              <td><b class="title">${file}</b></td>
+              <td> 
+                  <a href="${focus ? "" : "#" + name}">
+                  ${focus ? "unfocus" : "focus"}
+                  </a>
+              </td>
+            </tr>
+          </thead>
+          <thead>
+            <tr>
+              <td><b>function</b></td>
+              <td><b>status</b></td>
+            </tr>
+          </thead>
         `
+
       var func = (name, id) =>
         `
-          <div class="func">
-            <div class="name">${name}</div>
-            <div id="${id}">
-              <div class="run"></div>
-            </div>
-          </div>
+        <tbody>
+          <tr>
+            <td>${name}</td>
+            <td id="${id}"><div class="run"></div></td>
+          </tr>
+          </tbody>
           <div id="${id}_error" class="error"></div>
-        `
+      `
 
       var assert =
         (id, seal = false) =>
@@ -104,8 +104,8 @@
 
       async function main(focus = false) {
         let list = ["{objects}"]
-        let main = document.getElementsByTagName("main")[0]
-        main.innerHTML = ""
+        let table = document.getElementsByTagName("table")[0]
+        table.innerHTML = ""
 
         for await (let test of list) {
           if (focus && !location.hash.includes(test.name)) continue
@@ -115,14 +115,16 @@
             Object.getPrototypeOf(instance)
           )
 
-          main.innerHTML += head(test, focus)
+          table.innerHTML += head(test, focus)
+
           for await (let fnName of instanceMethods) {
             if (fnName === "constructor") continue
 
             let id = `${test.name}_${fnName}`
-            main.innerHTML += func(fnName, id)
+            table.innerHTML += func(fnName, id)
             instance[fnName](assert(id))
           }
+          table.innerHTML += "<br>"
         }
       }
 
@@ -130,6 +132,7 @@
         if (location.hash === "") main(false)
         else main(true)
       }
+
       window.onload = run
       window.onpopstate = run
     </script>
