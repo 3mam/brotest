@@ -1,9 +1,13 @@
 # brotest
-Brotest is tool for testing code in web browser.
-Brotest support asynchronous programming and thanks to [Parcel.js](https://parceljs.org) hot reloading server and typescript. 
-Scanning folder to find and automatically added file that contains **.test.** in file name.
-Brotest give possibility to focus on class that current working on. 
-Thanks to that entire test for project in not reloading when code is editing.
+Tool for testing code in web browser.
+
+features:
+ * support asynchronous programming
+ * hot reloading
+ * typescript
+ * automatically added file that contains **.test.** in file name
+ * focus on class that current working on
+
 
 ## config
 
@@ -38,5 +42,8 @@ export default class {
 ```
 ![image](./img/show.png)
 
+## issues
+Sometime hot reload don't work when test is created. This require manual reload page.
+
 ## demo video
-[![watch video](https://img.youtube.com/vi/sY_C3skjVIk/0.jpg)](https://youtu.be/sY_C3skjVIk)
+[![watch video](https://img.youtube.com/vi/sY_C3skjVIk/0.jpg )](https://youtu.be/sY_C3skjVIk)
