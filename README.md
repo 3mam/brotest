@@ -21,9 +21,9 @@ In this example is **src**.
 ```
 
 ## usage
-Ich test must contain **.test.** in file name. In files must by set **export default class**.
+Tests must contain **.test.** in file name. In files must by set **export default class**.
 Ich public method in class must contain assert parameter. Assert is callback for function that is responsible to check if test is correct.
-In assert first argument must by boolean, second is string that is optional. When first argument is set to **true** test display as ok. When is set to **false** is display as bad. When status is bad, optional message is shown.
+In assert first argument must by boolean, second is string that is optional. When first argument is set to **true** test display as **PASS**. When is set to **false** is display as FAIL. When status is **FAIL**, optional message is shown.
 
 ## example
 
